@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:usermanagerapp/models/user_model.dart';
-import 'package:usermanagerapp/view/user_profile/widget/delete.dart';
+import 'package:usermanagerapp/res/common/alert_dialog.dart';
 
 class UserProfileScreen extends ConsumerWidget {
   final UserModel user;
@@ -15,7 +15,16 @@ class UserProfileScreen extends ConsumerWidget {
         title: Text('User Profile'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              CommonAlertDialog(
+                titleText: 'Delete User',
+                contentText: 'Are you sure you want to delete this profile ?',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                onConfirmFn: () {},
+                onCancelFn: () {},
+              );
+            },
             icon: Icon(Icons.delete, color: Colors.red),
           ),
         ],
