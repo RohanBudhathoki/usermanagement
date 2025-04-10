@@ -15,8 +15,11 @@ class CommonUserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double containerPadding = screenWidth < 600 ? 10.0 : 20.0;
+    double avatarRadius = screenWidth < 600 ? 30.0 : 35.0;
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(containerPadding),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(12)),
         color: Colors.white,
@@ -30,12 +33,27 @@ class CommonUserCard extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(radius: 35, backgroundImage: backgroundImage),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(firstName + lastName), Text(email)],
+          CircleAvatar(radius: avatarRadius, backgroundImage: backgroundImage),
+          SizedBox(width: containerPadding),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '$firstName $lastName',
+
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                SizedBox(height: 4),
+                Text(email, overflow: TextOverflow.ellipsis, maxLines: 1),
+              ],
+            ),
           ),
         ],
       ),
