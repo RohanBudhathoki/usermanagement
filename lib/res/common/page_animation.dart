@@ -9,7 +9,7 @@ class AnimatedPageTransition {
     return PageRouteBuilder<T>(
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // Start from the right
+        const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
         var tween = Tween(
           begin: begin,

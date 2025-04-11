@@ -1,3 +1,8 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+
 class UserModel {
   final int id;
   final String email;
@@ -31,5 +36,12 @@ class UserModel {
       'lastName': lastName,
       'avatarUrl': avatarUrl,
     };
+  }
+
+  bool get isLocalAvatar =>
+      avatarUrl.startsWith('/') || avatarUrl.startsWith('file:/');
+
+  ImageProvider get avatarImageProvider {
+    return isLocalAvatar ? FileImage(File(avatarUrl)) : NetworkImage(avatarUrl);
   }
 }
