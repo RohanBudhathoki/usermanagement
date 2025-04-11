@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:usermanagerapp/res/common/page_animation.dart';
-import 'package:usermanagerapp/utils/loader/loader.dart';
+
 import 'package:usermanagerapp/view/add_user/add_user.dart';
 import 'package:usermanagerapp/view/home_screen/search_screen.dart';
 import 'package:usermanagerapp/view/home_screen/widget/user_card.dart';
@@ -41,7 +41,6 @@ class HomeScreen extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: GestureDetector(
               onTap: () async {
-                print(usersAsync[index].avatarImageProvider);
                 Navigator.push(
                   context,
                   AnimatedPageTransition.createRoute(

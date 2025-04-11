@@ -53,4 +53,20 @@ class UserRepo {
   Future<void> deleteUser(int id) async {
     await Future.delayed(Duration(milliseconds: 500));
   }
+
+  //update the user
+  Future<UserModel> updateUser({
+    required int id,
+    required String firstName,
+    required String lastName,
+    required String email,
+  }) async {
+    return UserModel(
+      id: DateTime.now().millisecondsSinceEpoch,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      avatarUrl: '',
+    );
+  }
 }

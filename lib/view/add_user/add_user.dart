@@ -92,7 +92,7 @@ class UserCreationScreen extends ConsumerWidget {
                             firstName: firstNameController.text,
                             lastName: lastNameController.text,
                             email: emailController.text,
-                            avatarImage: avatar,
+                            avatarImage: avatarImage,
                           );
                       ref.read(userListProvider.notifier).clearImage(ref);
                       Navigator.pop(context);

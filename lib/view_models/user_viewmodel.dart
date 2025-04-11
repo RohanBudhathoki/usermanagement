@@ -64,4 +64,23 @@ class UserViewModel extends StateNotifier<List<UserModel>> {
   void clearImage(WidgetRef ref) {
     ref.read(avatarImageProvider.notifier).state = null;
   }
+
+  //update User
+  Future<void> updateUser({
+    required int id,
+    required String firstName,
+    required String lastName,
+    required String email,
+  }) async {
+    final updatedUser = await _repo.updateUser(
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    );
+    state = [
+      for (final user in state)
+        if (user.id == id) updatedUser else user,
+    ];
+  }
 }
