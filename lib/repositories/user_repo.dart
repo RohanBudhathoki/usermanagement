@@ -37,16 +37,25 @@ class UserRepo {
     required String email,
     File? avatarFile,
   }) async {
-    await Future.delayed(Duration(milliseconds: 500));
-    String avatarUrl = avatarFile!.path;
+    try {
+      var data = {"name": firstName + lastName, "job": "leader"};
+      dynamic response = await apiServices.postApiResponse(
+        AppUrl.baseUrl + AppUrl.users,
+        data,
+      ); // this is response is not being used right now because the free api doesnt support it
 
-    return UserModel(
-      id: DateTime.now().millisecondsSinceEpoch,
-      email: email,
-      firstName: firstName,
-      lastName: lastName,
-      avatarUrl: avatarUrl,
-    );
+      String avatarUrl = avatarFile!.path;
+
+      return UserModel(
+        id: DateTime.now().millisecondsSinceEpoch,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        avatarUrl: avatarUrl,
+      );
+    } catch (e) {
+      throw e.toString();
+    }
   }
 
   // deleting the user
@@ -60,13 +69,16 @@ class UserRepo {
     required String firstName,
     required String lastName,
     required String email,
+    File? avatarFile,
   }) async {
+    String avatarUrl = avatarFile!.path;
+
     return UserModel(
       id: DateTime.now().millisecondsSinceEpoch,
       email: email,
       firstName: firstName,
       lastName: lastName,
-      avatarUrl: '',
+      avatarUrl: avatarUrl,
     );
   }
 }

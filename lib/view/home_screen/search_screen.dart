@@ -70,7 +70,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           ),
                         ),
                     child: CommonUserCard(
-                      backgroundImage: NetworkImage(user.avatarUrl),
+                      backgroundImage: user.avatarImageProvider,
                       firstName: user.firstName,
                       email: user.email,
                       lastName: user.lastName,

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:usermanagerapp/models/user_model.dart';
 import 'package:usermanagerapp/res/common/alert_dialog.dart';
 import 'package:usermanagerapp/res/common/common_elevated_button.dart';
 import 'package:usermanagerapp/res/common/common_textformfield.dart';
+import 'package:usermanagerapp/utils/pick_image.dart';
 
 import 'package:usermanagerapp/view_models/user_viewmodel.dart';
 
@@ -17,6 +20,7 @@ class UserProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final avatar = ref.watch(avatarImageProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -50,9 +54,24 @@ class UserProfileScreen extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 45,
-                      backgroundImage: user.avatarImageProvider,
+                    GestureDetector(
+                      onTap: () async {
+                        final picked = await pickImageFile();
+                        if (picked != null) {
+                          ref.read(avatarImageProvider.notifier).state = picked;
+                        }
+                      },
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage:
+                            avatar != null
+                                ? FileImage(avatar)
+                                : user.avatarImageProvider,
+                        child:
+                            avatar == null && user.avatarUrl.isEmpty
+                                ? Icon(Icons.camera_alt)
+                                : null,
+                      ),
                     ),
 
                     Column(
@@ -123,7 +142,7 @@ class UserProfileScreen extends ConsumerWidget {
                   CommonButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // final avatar = ref.read(avatarImageProvider);
+                        final avatar = ref.read(avatarImageProvider);
                         await ref
                             .read(userListProvider.notifier)
                             .updateUser(
@@ -131,6 +150,7 @@ class UserProfileScreen extends ConsumerWidget {
                               lastName: lastNameController.text,
                               email: emailController.text,
                               id: user.id,
+                              avatarImage: avatar,
                             );
                         ref.read(userListProvider.notifier).clearImage(ref);
                         Navigator.pop(context);

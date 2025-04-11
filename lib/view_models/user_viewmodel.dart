@@ -36,7 +36,6 @@ class UserViewModel extends StateNotifier<List<UserModel>> {
     required String email,
     File? avatarImage,
   }) async {
-    debugger();
     final newUser = await _repo.createUser(
       firstName: firstName,
       lastName: lastName,
@@ -71,12 +70,14 @@ class UserViewModel extends StateNotifier<List<UserModel>> {
     required String firstName,
     required String lastName,
     required String email,
+    File? avatarImage,
   }) async {
     final updatedUser = await _repo.updateUser(
       id: id,
       firstName: firstName,
       lastName: lastName,
       email: email,
+      avatarFile: avatarImage,
     );
     state = [
       for (final user in state)
